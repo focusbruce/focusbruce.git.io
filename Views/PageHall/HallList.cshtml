@@ -1,0 +1,44 @@
+﻿@model HLSJ.Web.Models.TaskInfoModel
+@{
+    ViewBag.Title = "大厅任务";
+    Layout = "~/Views/Shared/_LayoutBefore.cshtml";
+}
+
+<script src="~/Content/Js/JsPageHall.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        onPageLoad();
+    });
+</script>
+
+<div class="fr main">
+    <div class="box">
+        <div class="boxtitle">任务大厅</div>
+        <div class="boxinfo">
+            <p>@Html.Raw(Model.Notice.Content)</p>
+        </div>
+    </div>
+    <div class="box mt10">
+        <div class="boxtitle">
+            进行中的任务<div class="fr" style="padding: 0 15px; border: 1px solid #ff6a00; background: #ffd800;"><a href="/PageHall/HallList" class="red">点击刷新任务</a></div>
+        </div>
+        <div class="boxinfo">
+            <table width="100%" border="0" cellspacing="1" cellpadding="0">
+                <tr>
+                    <td align="right">标题：
+                    </td>
+                    <td>
+                        @Html.TextBoxFor(m => m.Task.Title)
+                    </td>
+                    <td>
+                        <input type="button" id="_search" value="查询" onclick="changePage(1);" />
+                    </td>
+                </tr>
+            </table>
+            <div id="tbList">
+            </div>
+            <div id="divPager" class="dfPager">
+            </div>
+        </div>
+    </div>
+</div>

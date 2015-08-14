@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html >
+<html>
+<head>
+    <title>系统管理员</title>
+    <link href="~/Content/Css/default.css" rel="stylesheet" />
+    <link href="~/Content/Css/main.css" rel="stylesheet" />
+    <link href="~/Content/Css/doublefish.pager.css" rel="stylesheet" />
+    <script src="~/Content/Js/jquery-1.4.3.min.js"></script>
+    <script src="~/Content/Js/doublefish.pager.js"></script>
+    <link href="~/Content/Skin/default.css" rel="stylesheet" />
+</head>
+<body>
+    <div id="main">
+        @{Html.RenderAction("Logo", "Default");}
+        <div class="wrap">
+            <div class="mt10 clearfix">
+                @{Html.RenderAction("Nav", "Default");}
+                @RenderBody()
+            </div>
+        </div>
+        @{Html.RenderAction("Foot", "Default");}
+    </div>
+    @{Html.RenderAction("Display", "Default");}
+</body>
+</html>
+
+<script type="text/javascript">
+    function onClose(id) {
+        $("#" + id).slideUp("1000");
+        $("#" + id).css('display', 'none');
+        $("#main").css("opacity", "1.0");
+    }
+</script>

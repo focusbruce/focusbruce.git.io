@@ -1,0 +1,15 @@
+﻿@model HLSJ.Web.Models.VeriCodeClass
+<img id="valiCode" style="cursor: pointer; vertical-align:sub; height:21px;" src="/PassPort/GetValidateCode?key=@Model.Key"
+    alt="验证码"  />
+@*<a href="javascript:valiCodeClick()">看不清</a>*@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#valiCode").bind("click", function () {
+            this.src = "/PassPort/GetValidateCode?key=@Model.Key&now=" + new Date();
+        });
+    });
+
+    function valiCodeClick() {
+        $("#valiCode").click();
+    }
+</script>

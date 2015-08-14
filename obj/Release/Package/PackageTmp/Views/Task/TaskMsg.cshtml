@@ -1,0 +1,25 @@
+﻿@model HLSJ.Business.ViewObject.Task_InfoVO
+@{
+    ViewBag.Title = "任务详情";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="fr main">
+    <div class="box">
+        <div class="boxtitle">任务详情</div>
+        <div class="boxcontent" style="padding: 20px 40px;">
+            <div class="taskitem">
+                    <label>商家编号：</label><span>【@Model.UserCode】</span><label>QQ：</label><span><a href="http://wpa.qq.com/msgrd?V=1&Uin=@Model.QQCode"><img src="~/Content/images/pa.gif" border="0"></a></span><label>连接数量：</label><span>【@Model.Number】</span><label>总金额：</label><span>【@(Model.Money)元】</span><br>
+                    <label class="red">任务要求：</label><span class="remark">【@Model.Title】</span><br>
+                    <label>假聊：</label><span>【<img src="~/Content/images/@(Model.Fake > 0 ? "cross.png" : "tick.png")" alt="" height="16" width="16">】</span><label>改地址：</label><span>【<img src="~/Content/images/@(Model.Change > 0 ? "cross.png" : "tick.png")" alt="" height="16" width="16">】</span><label>返款时间：</label><span>【@Model.BackMoney】</span>
+                </div>
+            <h3>&nbsp;</h3>
+            <div>
+                <span class="step">
+                    @Html.Raw(Model.Content)
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+

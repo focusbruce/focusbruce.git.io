@@ -1,0 +1,167 @@
+﻿@model HLSJ.Web.Models.TaskInfoModel
+@{
+    ViewBag.Title = "我发布的任务";
+    Layout = "~/Views/Shared/_LayoutBefore.cshtml";
+}
+<style>
+ .jibenxinxi{ width:729px; height:auto; float:left;}
+ .jibenxinxi tr{ width:729px; height:44px;}
+ .jibenxinxi tr td{ height:44px; font-size:12px; color:#666666; line-height:44px;}
+ .jibenxinxi tr td a{ color:#336699;}
+ .jibenxinxi tr td span{ color:#333333;}
+ .xinxi_text{ width:138px; height:22px; border:1px #aaaaaa solid; font-size:12px; color:#333333; line-height:22px; padding-left:10px;}
+  .tijiao{ background:url(../../Content/images/save.gif); width:97px; height:33px; cursor:pointer; border:none; margin-top:10px; float:left;}
+</style>
+<script src="~/Content/kindeditor/kindeditor.js"></script>
+<script type="text/javascript">
+    KindEditor.ready(function (K) {
+        var options = {
+            uploadJson: '../Content/kindeditor/asp.net/upload_json.ashx',
+            fileManagerJson: '../Content/kindeditor/asp.net/file_manager_json.ashx',
+            allowFileManager: true
+        };
+        window.editor = K.create('#content', options);
+    });
+
+    function onSave() {
+        if ($.trim($("#Task_Title").val()).length <= 0) {
+            alert("标题不能为空！");
+            return false;
+        }
+        if ($.trim($("#Task_Money").val()).length <= 0) {
+            alert("总金额不能为空！");
+            return false;
+        }
+        if ($.trim($("#Task_Money").val()).length > 0) {
+            var reint = new RegExp("^\\d{1,9}$");
+            if (!reint.test($.trim($("#Task_Money").val()))) {
+                var re = new RegExp("^\\d{1,9}\\.\\d{1,2}$");
+                if (!re.test($.trim($("#Task_Money").val()))) {
+                    dialog.alert('总金额格式输入错误，小数点后可保留两位数！', '错误提示', function () { });
+                    return false;
+                }
+            }
+        }
+        if ($("#Task_Number").val() == "0")
+        {
+            alert("请选择连接数量！");
+            return false;
+        }
+
+        if (confirm("发布后无法进行修改，是否确认发布？")) {
+            var ajax = {};
+            ajax.type = "POST";
+            ajax.url = "/PagePublish/IsGoldNumber";
+            ajax.data = {};
+            ajax.data.Number = $("#Task_Number").val();
+            ajax.data.ajax = new Date().getTime();
+            ajax.success = function (result) {
+                if (result == "1") {
+                    var ajax = {};
+                    ajax.type = "POST";
+                    ajax.url = "/PagePublish/Add";
+                    ajax.data = {};
+                    ajax.data.ID = $("#Task_ID").val();
+                    ajax.data.Title = $("#Task_Title").val();
+                    ajax.data.Content = $("iframe").contents().find("body").html();
+                    ajax.data.Money = $("#Task_Money").val();
+                    ajax.data.Fake = $("input[name='Task_Fake']:checked").val();
+                    ajax.data.Number = $("#Task_Number").val();
+                    ajax.data.Change = $("input[name='Task_Change']:checked").val();
+                    ajax.data.BackMoney = $("#Task_BackMoney").val();
+                    ajax.data.ajax = new Date().getTime();
+                    ajax.success = function (result) {
+                        if (result == "1") {
+                            alert("保存成功！");
+                            window.location.href = "/PageMyTask/MyPublishList";
+                        }
+                        else {
+                            alert("保存失败，请刷新后重试！");
+                        }
+                    };
+                    ajax.error = function (error) {
+                        alert(error.statusText);
+                    };
+                    $.ajax(ajax);
+                }
+                else {
+                    alert("金币不足，请充值或参加任务进行增加金币！");
+                }
+            };
+            ajax.error = function (error) {
+                alert(error.statusText);
+            };
+            $.ajax(ajax);
+        }
+    }
+</script>
+
+<div class="fr main">
+    <div class="box">
+        <div class="boxtitle">发布任务</div>
+        <div class="boxinfo" style="min-height: 470px; _height: 470px;">
+            <table border="0" cellspacing="0" cellpadding="0" class="jibenxinxi">
+                <tr>
+                    <td width="40%" align="right">
+                        <font style="color: #ff6600;">*</font>标题：
+                    </td>
+                    <td width="60%" align="left" style="padding-left: 10px;">
+                        @Html.TextBoxFor(m => m.Task.Title, new { Class="xinxi_text"})
+                    </td>
+                    <td width="40%" align="right">
+                        <font style="color: #ff6600;">*</font>总金额：
+                    </td>
+                    <td width="60%" align="left" style="padding-left: 10px;">
+                        @Html.TextBoxFor(m => m.Task.Money, new { Class="xinxi_text"})
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40%" align="right">
+                        <font style="color: #ff6600;">*</font>假聊：
+                    </td>
+                    <td width="60%" align="left" style="padding-left: 10px;">
+                        <input type="radio" name="Task_Fake" value="0" checked="checked" style="margin-top: 15px; margin-right: 4px; float: left;"/><font style="float: left;">假聊</font>
+                        <input type="radio" name="Task_Fake" value="1"  style="margin-top: 15px; margin-right: 4px; margin-left: 10px; float: left;"/><font style="float: left;">不聊</font>
+                    </td>
+                    <td width="40%" align="right">
+                        链接数量：
+                    </td>
+                    <td width="60%" align="left" style="padding-left: 10px;">
+                        @Html.DropDownListFor(m => m.Task.Number, (List<SelectListItem>)ViewBag.NumberData, new { Style="float: left;"})
+                    </td>
+                </tr>
+                <tr>
+                    <td width="50%" align="right">
+                        <font style="color: #ff6600;">*</font>改地址：
+                    </td>
+                    <td width="60%" align="left" style="padding-left: 10px;">
+                        <input type="radio" name="Task_Change" value="0" checked="checked" style="margin-top: 15px; margin-right: 4px; float: left;"/><font style="float: left;">改</font>
+                        <input type="radio" name="Task_Change" value="1" style="margin-top: 15px; margin-right: 4px; margin-left: 10px; float: left;"/><font style="float: left;">不改</font>
+                    </td>
+                    <td width="40%" align="right">
+                        返款时间：
+                    </td>
+                    <td width="60%" align="left" style="padding-left: 10px;">
+                        @Html.DropDownListFor(m=>m.Task.BackMoney,(List<SelectListItem>)ViewBag.BackMoneyData, new { Style="float: left;"})
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40%" align="right">
+                        内容：
+                    </td>
+                    <td width="60%" align="left" style="padding-left: 10px;" colspan="3">
+                        <textarea id="content" name="content" style="width: 500px; height: 300px;">@(Model != null && Model.Task.Content != null ? Model.Task.Content : "")</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="40%" align="right">&nbsp;&nbsp;
+                    </td>
+                    <td width="60%" align="left" style="padding-left: 10px;">
+                        <input type="button" class="tijiao"  onclick="return onSave();"/>&nbsp;&nbsp;&nbsp;<a href="/Relation/List">返回</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+

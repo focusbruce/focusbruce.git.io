@@ -1,0 +1,275 @@
+﻿@model HLSJ.Web.Models.TaskMsgModel
+@{
+    ViewBag.Title = "参加任务详情";
+    Layout = "~/Views/Shared/_LayoutBefore.cshtml";
+}
+<style>
+    .yellow_button
+    {
+        border: medium none;
+        color: #FFFFFF;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .yellow_button
+    {
+        background: url("../../Content/images/yellow_button.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+        border: medium none;
+        color: #FFFFFF;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 14px;
+        font-weight: 800;
+        height: 36px;
+        line-height: 36px;
+        overflow: hidden;
+        text-align: center;
+        width: 139px;
+    }
+</style>
+<div class="fr main">
+    <div class="box">
+        <div class="boxtitle">查看任务</div>
+        <div class="boxcontent" style="padding: 20px 40px;">
+            <div class="order_flow" style="width: 565px;">
+                <div class="order_flow_left">
+                    <a title="生成任务" disabled="disabled" class="order_flow_input">生成任务</a>
+                    <span>
+                        <p class="name">发布任务</p>
+                    </span>
+                </div>
+                <div class="order_flow_arrive">
+                    <a title="申请参加" disabled="disabled" class="order_flow_input">&nbsp;</a>
+                    <span>
+                        <p class="name">申请参加</p>
+                    </span>
+                </div>
+                @if (Model.Apple.State > 0)
+                {
+                    <div class="order_flow_arrive">
+                        <a title="通过申请" disabled="disabled" class="order_flow_input">通过申请</a>
+                        <span>
+                            <p class="name">通过申请</p>
+                        </span>
+                    </div>
+                }
+                else
+                {
+                    <div class="order_flow_wait">
+                        <a title="通过申请" disabled="disabled" class="order_flow_input">&nbsp;</a>
+                        <span>
+                            <p class="name">通过申请</p>
+                        </span>
+                    </div>
+                }
+                @if (Model.Apple.State > 1)
+                { 
+                    <div class="order_flow_arrive">
+                        <a title="任务完成" disabled="disabled" class="order_flow_input">任务完成</a>
+                        <span>
+                            <p class="name">任务完成</p>
+                        </span>
+                    </div>
+                }
+                else
+                {
+                    <div class="order_flow_wait">
+                        <a title="任务完成" disabled="disabled" class="order_flow_input">&nbsp;</a>
+                        <span>
+                            <p class="name">任务完成</p>
+                        </span>
+                    </div>
+                }
+                @if (Model.Apple.State > 2)
+                { 
+                    <div class="order_flow_arrive">
+                        <a title="交易完成" disabled="disabled" class="order_flow_input">交易完成</a>
+                        <span>
+                            <p class="name">交易完成</p>
+                        </span>
+                    </div>
+                }
+                else
+                {
+                    <div class="order_flow_wait">
+                        <a title="交易完成" disabled="disabled" class="order_flow_input">&nbsp;</a>
+                        <span>
+                            <p class="name">交易完成</p>
+                        </span>
+                    </div>
+                }
+                @if (Model.Apple.State > 3)
+                { 
+                    <div class="order_flow_right_arrive">
+                        <a disabled="disabled" title="评价完成" class="order_flow_input">评价完成</a>
+                        <span>
+                            <p class="name">评价完成</p>
+                        </span>
+                    </div>
+                }
+                else
+                {
+                    <div class="order_flow_right_wait">
+                        <a title="评价完成" disabled="disabled" class="order_flow_input">&nbsp;</a>
+                        <span>
+                            <p class="name">评价完成</p>
+                        </span>
+                    </div>
+                }
+                <div class="clear"></div>
+            </div>
+            <h3>&nbsp;</h3>
+            <div class="taskitem">
+                @if (Model.PublishUser.State == 2)
+                { 
+                    <label>此接单人已被拉入黑名单，请点击退单重新进行任务！</label>
+                    if (Model.Apple.State != 4)
+                    {
+                    <input type="button" value="退单" onclick="onBillBack('@Model.Apple.ID    ');" />
+                    }
+                }
+                else
+                {
+                    <label>商家编号：</label><span>【@Model.PublishUser.Code】</span><label>QQ：</label><span><a target="_blank" href="tencent://Message/?Uin=@Model.PublishUser.QQCode&websiteName=q-zone.qq.com&Menu=yes"><img src="~/Content/images/pa.gif" border="0"></a></span><label>连接数量：</label><span>【@Model.Task.Number】</span><label>总金额：</label><span>【@(Model.Task.Money)元】</span><br>
+                    <label class="red">任务要求：</label><span class="remark">【@Model.Task.Title】</span><br>
+                    <label>假聊：</label><span>【<img src="~/Content/images/@(Model.Task.Fake > 0 ? "cross.png" : "tick.png")" alt="" height="16" width="16">】</span><label>改地址：</label><span>【<img src="~/Content/images/@(Model.Task.Change > 0 ? "cross.png" : "tick.png")" alt="" height="16" width="16">】</span><label>返款时间：</label><span>【@(Model.Task.BackMoney>3?(Model.Task.BackMoney==4?"6小时":"7-12小时"):(Model.Task.BackMoney==0?"立即":(Model.Task.BackMoney.ToString()+"小时")))】</span>
+                }
+            </div>
+            <h3>&nbsp;</h3>
+            <div class="taskitem">
+                <label>@(Model.Apple.State > 0 ? "接单人" : "申请参加")：</label><span>【@Model.AppleUser.Code】</span><label>QQ：</label><span><a target="_blank" href="tencent://Message/?Uin=@Model.AppleUser.QQCode&websiteName=q-zone.qq.com&Menu=yes"><img src="~/Content/images/pa.gif" border="0"></a></span>
+                <label>旺旺号：</label><span>【@Model.Apple.SubjoinNum】</span>
+            </div>
+            @if (Model.PublishUser.State != 2)
+            {
+                if (Model.Apple.State == 1)
+                { 
+                <h3>&nbsp;</h3>
+                <div class="taskitem">
+                    <input class="yellow_button" type="button" tabindex="8" value="任务完成" onclick="onTaskPublish('@Model.Apple.ID    ');">
+                    <span style="color: red; font-weight: bold; width: 300px; font-size: 16px;">若任务已完成，请点击任务完成按钮。</span>
+                </div>
+                }
+                else if (Model.Apple.State == 3)
+                { 
+                <h3>&nbsp;</h3>
+                <div class="taskitem">
+                    <input class="yellow_button" type="button" tabindex="8" value="评论完成" onclick="onReviewPublish('@Model.Apple.ID    ')">
+                    <span style="color: red; font-weight: bold; width: 300px; font-size: 16px;">若评论已完成，请点击评论完成按钮。</span>
+                </div>
+                }
+
+            }
+            <h3>&nbsp;</h3>
+            @if (Model.Apple.State > 0)
+            {
+                <div>
+                    <span class="step">
+                        @Html.Raw(Model.Task.Content)
+                    </span>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function onTaskPublish(id) {
+        if (confirm("是否确认任务完成？")) {
+            var ajax = {};
+            ajax.type = "POST";
+            ajax.url = "/PageApple/TaskPublish";
+            ajax.data = {};
+            ajax.data.AppleID = id;
+            ajax.data.ajax = new Date().getTime();
+            ajax.success = function (result) {
+                if (result == "1") {
+                    alert("任务已完成，请联系发布人进行返款！");
+                    window.location.href = window.location.href;
+                }
+                else {
+                    alert("任务完成失败，请刷新后重试！");
+                }
+            };
+            ajax.error = function (error) {
+                alert(error.statusText);
+            };
+            $.ajax(ajax);
+        }
+    }
+
+    function onReviewPublish(id)
+    {
+        if (confirm("是否确认已评价？")) {
+            var ajax = {};
+            ajax.type = "POST";
+            ajax.url = "/PageApple/ReviewPublish";
+            ajax.data = {};
+            ajax.data.AppleID = id;
+            ajax.data.ajax = new Date().getTime();
+            ajax.success = function (result) {
+                if (result == "1") {
+                    alert("任务已完成，任务结束！");
+                    window.location.href = window.location.href;
+                }
+                else {
+                    alert("评价失败，请刷新后重试！");
+                }
+            };
+            ajax.error = function (error) {
+                alert(error.statusText);
+            };
+            $.ajax(ajax);
+        }
+    }
+
+    function openReview(id)
+    {
+        $("#appleId").val(id);
+        $("#main").css("opacity", "0.3");
+        var wid = $(window).width();
+        var hei = $(window).height();
+        var lef = (wid - 400) / 2 + "px";
+        var heii = (hei - 200) / 2 + "px";
+        $("#review").css({
+            "z-index": "99",
+            "position": "absolute",
+            "display": "block",
+            "width": "0px",
+            "height": "0px",
+            "top": heii,
+            "background": "#EEEEEE"
+        });
+    }
+
+    function onClose() {
+        $("#review").slideUp("1000");
+        $("#review").css('display', 'none');
+        $("#main").css("opacity", "1.0");
+    }
+
+    function onBillBack(id)
+    {
+        var ajax = {};
+        ajax.type = "POST";
+        ajax.url = "/PageApple/BillBack";
+        ajax.data = {};
+        ajax.data.AppleID = id;
+        ajax.data.ajax = new Date().getTime();
+        ajax.success = function (result) {
+            if (result == "1") {
+                alert("退单成功！");
+                window.location.href = "/PageApple/AppleList";
+            }
+            else {
+                alert("退单失败，请刷新后重试！");
+            }
+        };
+        ajax.error = function (error) {
+            alert(error.statusText);
+        };
+        $.ajax(ajax);
+    }
+</script>

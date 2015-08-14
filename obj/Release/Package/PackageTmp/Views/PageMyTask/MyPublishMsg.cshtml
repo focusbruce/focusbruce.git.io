@@ -1,0 +1,269 @@
+﻿@model HLSJ.Web.Models.TaskMsgModel
+@{
+    ViewBag.Title = "任务详情";
+    Layout = "~/Views/Shared/_LayoutBefore.cshtml";
+}
+<style>
+    .yellow_button
+    {
+        border: medium none;
+        color: #FFFFFF;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .yellow_button
+    {
+        background: url("../../Content/images/yellow_button.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+        border: medium none;
+        color: #FFFFFF;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 14px;
+        font-weight: 800;
+        height: 36px;
+        line-height: 36px;
+        overflow: hidden;
+        text-align: center;
+        width: 139px;
+    }
+</style>
+<div class="fr main">
+    <div class="box">
+        <div class="boxtitle">查看任务</div>
+        <div class="boxcontent" style="padding: 20px 40px;">
+            <div class="order_flow" style="width: 565px;">
+                <div class="order_flow_left">
+                    <a title="生成任务" disabled="disabled" class="order_flow_input">生成任务</a>
+                    <span>
+                        <p class="name">发布任务</p>
+                    </span>
+                </div>
+                @if (Model.Apple.AppleTotal > 0)
+                {
+                    <div class="order_flow_arrive">
+                        <a title="申请参加" disabled="disabled" class="order_flow_input">申请参加</a>
+                        <span>
+                            <p class="name">申请参加</p>
+                        </span>
+                    </div>
+                }
+                @if (Model.Apple.State > 0)
+                {
+                    <div class="order_flow_arrive">
+                        <a title="通过申请" disabled="disabled" class="order_flow_input">通过申请</a>
+                        <span>
+                            <p class="name">通过申请</p>
+                        </span>
+                    </div>
+                }
+                else
+                {
+                    <div class="order_flow_wait">
+                        <a title="通过申请" disabled="disabled" class="order_flow_input">&nbsp;</a>
+                        <span>
+                            <p class="name">通过申请</p>
+                        </span>
+                    </div>
+                }
+                @if (Model.Apple.State > 1)
+                { 
+                    <div class="order_flow_arrive">
+                        <a title="任务完成" disabled="disabled" class="order_flow_input">任务完成</a>
+                        <span>
+                            <p class="name">任务完成</p>
+                        </span>
+                    </div>
+                }
+                else
+                {
+                    <div class="order_flow_wait">
+                        <a title="任务完成" disabled="disabled" class="order_flow_input">&nbsp;</a>
+                        <span>
+                            <p class="name">任务完成</p>
+                        </span>
+                    </div>
+                }
+                @if (Model.Apple.State > 2)
+                { 
+                    <div class="order_flow_arrive">
+                        <a title="交易完成" disabled="disabled" class="order_flow_input">交易完成</a>
+                        <span>
+                            <p class="name">交易完成</p>
+                        </span>
+                    </div>
+                }
+                else
+                {
+                    <div class="order_flow_wait">
+                        <a title="交易完成" disabled="disabled" class="order_flow_input">&nbsp;</a>
+                        <span>
+                            <p class="name">交易完成</p>
+                        </span>
+                    </div>
+                }
+                @if (Model.Apple.State > 3)
+                { 
+                    <div class="order_flow_right_arrive">
+                        <a disabled="disabled" title="评价完成" class="order_flow_input">评价完成</a>
+                        <span>
+                            <p class="name">评价完成</p>
+                        </span>
+                    </div>
+                }
+                else
+                {
+                    <div class="order_flow_right_wait">
+                        <a title="评价完成" disabled="disabled" class="order_flow_input">&nbsp;</a>
+                        <span>
+                            <p class="name">评价完成</p>
+                        </span>
+                    </div>
+                }
+                <div class="clear"></div>
+            </div>
+            <h3>&nbsp;</h3>
+            <div class="taskitem">
+                <label>商家编号：</label><span>【@Model.PublishUser.Code】</span><label>QQ：</label><span><a target="_blank" href="tencent://Message/?Uin=@Model.PublishUser.QQCode&websiteName=q-zone.qq.com&Menu=yes"><img src="~/Content/images/pa.gif" border="0"></a></span><label>连接数量：</label><span>【@Model.Task.Number】</span><label>总金额：</label><span>【@(Model.Task.Money)元】</span><br>
+                <label class="red">任务要求：</label><span class="remark">【@Model.Task.Title】</span><br>
+                <label>假聊：</label><span>【<img src="~/Content/images/@(Model.Task.Fake > 0 ? "cross.png" : "tick.png")" alt="" height="16" width="16">】</span><label>改地址：</label><span>【<img src="~/Content/images/@(Model.Task.Change > 0 ? "cross.png" : "tick.png")" alt="" height="16" width="16">】</span><label>返款时间：</label><span>【@(Model.Task.BackMoney>3?(Model.Task.BackMoney==4?"6小时":"7-12小时"):(Model.Task.BackMoney==0?"立即":(Model.Task.BackMoney.ToString()+"小时")))】</span>
+            </div>
+            @if (Model.Task.IsApple > 0)
+            {
+                <h3>&nbsp;</h3>
+                <div class="taskitem">
+                    @if (Model.AppleUser.State == 2)
+                    { 
+                        <label>此接单人已被拉入黑名单，请点击退单重新进行任务！</label>
+                        if (Model.Apple.State != 4)
+                        {
+                        <input type="button" value="退单" onclick="onBillBack('@Model.Apple.ID    ');" />
+                        }
+                    }
+                    else
+                    {
+                        <label>申请参加：</label><span>【@Model.AppleUser.Code】</span><label>QQ：</label><span><a target="_blank" href="tencent://Message/?Uin=@Model.AppleUser.QQCode&websiteName=q-zone.qq.com&Menu=yes"><img src="~/Content/images/pa.gif" border="0"></a></span>
+                        <label>旺旺号：</label><span>【@Model.Apple.SubjoinNum】</span>
+                    }
+                </div>
+            }
+            else
+            {
+                foreach (HLSJ.Business.ViewObject.User_InfoVO v in Model.AppleList)
+                {
+                <h3>&nbsp;</h3>
+                <div class="taskitem">
+                    <label>申请参加：</label><span>【@v.Code】</span><label>QQ：</label><span><a target="_blank" href="tencent://Message/?Uin=@v.QQCode&websiteName=q-zone.qq.com&Menu=yes"><img src="~/Content/images/pa.gif" border="0"></a></span>
+                    <label>旺旺号：</label><span>【@v.SubjoinNumber】</span><input class="yellow_button" type="button" tabindex="8" value="通过申请" onclick="onPassApple('@v.AppleID    ');">
+                </div>
+                }
+            }
+
+            @if (Model.AppleUser.State != 2)
+            {
+                if (Model.Apple.State == 1)
+                {
+                <h3>&nbsp;</h3>
+                <div class="taskitem">
+                    <input class="yellow_button" type="button" tabindex="8" value="退回市场" onclick="onBackMark('@Model.Apple.ID    ');">
+                    <span style="color: red; font-weight: bold; width: 420px; font-size: 16px;">若此接单人未能完成任务，请点击通过退回市场按钮。</span>
+                </div>
+                }
+                else if (Model.Apple.State == 2)
+                { 
+                <h3>&nbsp;</h3>
+                <div class="taskitem">
+                    <input class="yellow_button" type="button" tabindex="8" value="交易完成" onclick="onDealPublish('@Model.Apple.ID    ')">
+                    <span style="color: red; font-weight: bold; width: 400px; font-size: 16px;">点击交易完成前，请确认任务是否完成。</span><br />
+                </div>
+                }
+            }
+            <h3>&nbsp;</h3>
+            <div>
+                <span class="step">
+                    @Html.Raw(Model.Task.Content)
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function onPassApple(id) {
+        if (confirm("是否确认通过申请？")) {
+            var ajax = {};
+            ajax.type = "POST";
+            ajax.url = "/PageTask/PassApple";
+            ajax.data = {};
+            ajax.data.AppleID = id;
+            ajax.data.ajax = new Date().getTime();
+            ajax.success = function (result) {
+                if (result == "1") {
+                    alert("申请已通过，请联系接单人进行任务！");
+                    window.location.href = window.location.href;
+                }
+                else if(result=="-1")
+                {
+                    alert("此接单人今天参加的任务已上限，请选择其他接单人！");
+                }
+                else {
+                    alert("通过申请失败，请刷新后重试！");
+                }
+            };
+            ajax.error = function (error) {
+                alert(error.statusText);
+            };
+            $.ajax(ajax);
+        }
+    }
+
+    function onBackMark(id)
+    {
+        if (confirm("是否确认任务退回？")) {
+            var ajax = {};
+            ajax.type = "POST";
+            ajax.url = "/PageTask/BackMark";
+            ajax.data = {};
+            ajax.data.AppleID = id;
+            ajax.data.ajax = new Date().getTime();
+            ajax.success = function (result) {
+                if (result == "1") {
+                    alert("任务已退回市场！");
+                    window.location.href = "/PageTask/TaskList";
+                }
+                else {
+                    alert("退回市场失败，请刷新后重试！");
+                }
+            };
+            ajax.error = function (error) {
+                alert(error.statusText);
+            };
+            $.ajax(ajax);
+        }
+    }
+
+    function onDealPublish(id)
+    {
+        if (confirm("是否确认交易成功？")) {
+            var ajax = {};
+            ajax.type = "POST";
+            ajax.url = "/PageTask/DealPublish";
+            ajax.data = {};
+            ajax.data.AppleID = id;
+            ajax.data.ajax = new Date().getTime();
+            ajax.success = function (result) {
+                if (result == "1") {
+                    alert("交易成功，请联系接单人进行评价！");
+                    window.location.href = window.location.href;
+                }
+                else {
+                    alert("交易失败，请刷新后重试！");
+                }
+            };
+            ajax.error = function (error) {
+                alert(error.statusText);
+            };
+            $.ajax(ajax);
+        }
+    }
+</script>

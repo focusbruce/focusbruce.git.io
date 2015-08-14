@@ -1,0 +1,79 @@
+﻿@model HLSJ.Web.Models.UserInfoModel
+@{
+    ViewBag.Title = "主页";
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="UTF-8">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>会员注册 </title>
+    <script src="~/Content/Js/kissy-min.js"></script>
+    <script src="~/Content/Js/switchable-min.js"></script>
+    <script src="~/Content/Js/validation-min.js"></script>
+    <link href="~/Content/Skin/default.css" rel="stylesheet" />
+    <link href="~/Content/Skin/validation-min.css" rel="stylesheet" />
+    <script src="~/Content/Js/jquery-1.4.3.min.js"></script>
+    <script type="text/javascript">
+        function onHint() {
+            alert("请先登录！");
+            window.location.href = "/Home/Index";
+        }
+    </script>
+</head>
+<body>
+    <div class="topNavi">
+        <ul>
+            <li class="title">亲,&nbsp;欢迎您来到狼爱上羊!</li>
+            <li><a href="TaskList.aspx" title="抓羊大厅"><span class="t1"></span>抓羊大厅</a></li>
+        </ul>
+    </div>
+    <div class="wrap">
+        <div class="header">
+            <div class="logoBar">
+                <h1 class="logo">
+                </h1>
+                <div class="userPanel">
+                    <a class="userLog" href="Main.aspx">会员中心</a><a id="aboutUs" class="userCon" title="请与我们联系，为您服务是我们的荣幸"
+                        href="ContactUs.aspx">联系我们</a></div>
+            </div>
+            <div class="navBar">
+                <ul id="mainNav" class="mainNav">
+                    <li class="li1"><a class="a1 red" href="#" onclick="onHint();">首页</a></li>
+                    <li class="spe"></li>
+                    <li class="li1"><a class="a1" href="#" onclick="onHint();">接任务必看</a></li>
+                    <li class="spe"></li>
+                    <li class="li1"><a class="a1" href="#" onclick="onHint();">发任务必看</a></li>
+                    <li class="spe"></li>
+                    <li class="li1"><a class="a1 red" href="#" onclick="onHint();">★任务大厅★</a></li>
+                    <li class="spe"></li>
+                    <li class="li1"><a class="a1 red" href="#" onclick="onHint();">黑名单</a></li>
+                    <li class="spe"></li>
+                    <li class="li1"><a class="a1" href="#" onclick="onHint();">经验分享</a></li>
+                    <li class="spe"></li>
+                    <li class="li1"><a class="a1 red" href="#" onclick="onHint();">★新人必看★</a></li>
+                    <li class="spe"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="wrap">
+        <div class="box mt10">
+            <div class="boxtitle">
+                用户注册</div>
+            <a href="/Register/SignSj">
+                <img src="../../Content/skin/images/sjreg.png" width="300" height="120" /></a>
+            <a href="/Register/SignSs">
+                <img src="../../Content/skin/images/ssreg.png" width="300" height="110" /></a>
+        </div>
+    </div>
+    <div class="wrap">
+        <div class="footer">
+            <p class="copyright">
+                Copyright © 2015 All Rights Reserved. 内部平台 版权所有<br />
+                <a href="/www.cyberpolice.cn/wfjb/">
+                    <img src="../../Content/skin/images/110.gif" width="118" height="48" /></a>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

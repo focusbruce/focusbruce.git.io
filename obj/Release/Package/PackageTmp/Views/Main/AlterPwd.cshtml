@@ -1,0 +1,69 @@
+﻿@model HLSJ.Web.Models.UserInfoModel
+@{
+    ViewBag.Title = "修改密码";
+    Layout = "~/Views/Shared/_LayoutBefore.cshtml";
+}
+
+<div class="fr main">
+    <div class="box">
+        <div class="boxtitle">修改密码</div>
+        <div class="boxcontent" style="padding: 20px 40px;">
+            <h3>请填写密码信息(带<font class="red">*</font>为必填项)</h3>
+            <div class="feld clearfix">
+                <label class="flabel"><font class="red">*</font>旧密码：</label>
+                @Html.PasswordFor(m => m.UserInfo.Password, new { Id = "txtOldPassword", Class="txt" })
+                <span class="fspan">5~10个字符，只能为英语字、数字</span>
+                <div style="display: none;" class="valid-under">
+                    <p class="estate"><span class="label"></span></p>
+                </div>
+            </div>
+            <div class="feld clearfix">
+                <label class="flabel"><font class="red">*</font>新密码：</label>
+                @Html.PasswordFor(m => m.UserInfo.Password, new { Id = "txtPassword", Class="txt" })
+                <span class="fspan">5~10个字符，只能为英语字、数字</span><div style="display: none;" class="valid-under">
+                    <p class="estate"><span class="label"></span></p>
+                </div>
+            </div>
+            <div class="feld clearfix">
+                <label class="flabel"><font class="red">*</font>确认密码：</label>
+                @Html.PasswordFor(m => m.UserInfo.Password, new { Id = "txtPassword1", Class="txt" })
+                <span class="fspan">请将输入的密码再次输入</span>
+                <div style="display: none;" class="valid-under">
+                    <p class="estate"><span class="label"></span></p>
+                </div>
+            </div>
+            <div class="feld clearfix">
+                <input name="submit" id="submit" src="~/Content/images/save.gif" style="border-width: 0px;" type="image" onclick="return onAlterPwd();">
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function onAlterPwd() {
+        if ($("#txtPassword").val() != $("#txtPassword1").val()) {
+            alert("两次密码输入不一致");
+            return false;
+        }
+        var ajax = {};
+        ajax.type = "POST";
+        ajax.url = "/Main/AlterPwd";
+        ajax.data = {};
+        ajax.data.oldPwd = $("#txtOldPassword").val();
+        ajax.data.newPwd = $("#txtPassword").val();
+        ajax.data.ajax = new Date().getTime();
+        ajax.success = function (result) {
+            if (result == "1") {
+                alert("密码修改成功！");
+                window.location.href = window.location.href;
+            }
+            else {
+                alert("密码修改失败，请刷新后重试！");
+            }
+        };
+        ajax.error = function (error) {
+            alert(error.statusText);
+        };
+        $.ajax(ajax);
+    }
+</script>

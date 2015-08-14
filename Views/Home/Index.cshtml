@@ -1,0 +1,43 @@
+﻿@model HLSJ.Web.Models.UserInfoModel
+@{
+    ViewBag.Title = "主页";
+    Layout = "~/Views/Shared/_LayoutPage.cshtml";
+}
+<div class="wrap">
+    <div class="mt10 clearfix">
+        @{Html.RenderPartial("PageMain");}
+        <div class="fl loginbox">
+            <div class="box">
+                <div class="logintitle">会员登录</div>
+                <div class="logincontent">
+                    <form name="J_form" method="post" action="/Home/Login" id="J_form">
+                        <div class="feld">
+                            <label>用户名:</label><input name="userCode" type="text" id="userCode" class="txt" />
+                        </div>
+                        <div class="feld">
+                            <label>密码:</label><input name="pwd" type="password" id="pwd" class="txt" data-valid="{regex: [/^\S{5,10}$/,'密码为5~10个字符']}" />
+                        </div>
+                        <div class="feld">
+                            <label>验证码:</label><input name="authcode" type="text" id="authcode" class="codetxt" data-valid="{regex: [/^\S{4,4}$/,'验证码为4个字符']}" />
+                            @Html.Partial("VeriCode", new HLSJ.Web.Models.VeriCodeClass("userCode"))
+                            @Html.ValidationMessageFor(model => model.VerifiCode)
+                        </div>
+                        <div class="feld">
+                            <label></label>
+                            <input type="image" name="btnSubmit" id="btnSubmit" src="~/Content/images/login_button.jpg" style="border-width: 0px;">
+                            <a href="/PageThick/Thick">忘记密码</a>
+                        </div>
+                        <div class="feld">
+                            <label></label>
+                            <a href="/Register/Sign">
+                                <img src="~/Content/images/register.gif" width="134" height="33"></a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

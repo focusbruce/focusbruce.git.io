@@ -1,0 +1,271 @@
+﻿<style> 
+     .tanchu_frame{ background:#000; width:100%; height:100%; position:fixed; z-index:99999; opacity:0.95;filter:alpha(opacity=95); }
+     .tanchu{ background:#fff; border:3px #999999 solid;  width:610px; height:330px; position:fixed; left:50%; margin-left:-330px; top:50%; margin-top:-165px; padding-top:50px; z-index:9999999;}
+	 .xunjia_main{ width:660px; height:auto; padding:10px 0px; }
+     .xunjia_main tr{ width:660px; height:auto;}
+     .xunjia_main tr td{ height:auto; line-height:30px; font-size:12px; color:#666666;}
+     .xunjia_main tr td span{ color:#bc0000;}
+     .xunjia_main tr td a{color:#0a6eac;}
+     .xunjia_main tr td a:hover{ color:#e06610;}
+	 .xunjie_title{ width:350px; height:20px; line-height:20px; border:1px #999 solid; font-size:12px; color:#333333; padding-left:5px; margin-top:3px; float:left;}
+	 .tijiao{ background:url(../../Content/images/save.gif); width:97px; height:33px; cursor:pointer; border:none; margin-top:10px; float:left;}
+</style>
+
+<div class="tanchu_frame" id="userMsg" style="display: none;">
+    <div class="tanchu">
+        <table border="0" cellspacing="0" cellpadding="0" class="xunjia_main" style="padding: 0px; width: 600px;">
+            <tr>
+                <td width="25%" align="right">用户名:
+                </td>
+                <td width="25%" align="left" style="padding-left: 10px;">
+                    <span id="_code"></span>
+                </td>
+                <td width="25%" align="right">姓名:
+                </td>
+                <td width="25%" align="left" style="padding-left: 10px;">
+                    <span id="_name"></span>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%" align="right">密保问题:
+                </td>
+                <td width="25%" align="left" style="padding-left: 10px;">
+                    <span id="_problem"></span>
+                </td>
+                <td width="25%" align="right">密保答案:
+                </td>
+                <td width="25%" align="left" style="padding-left: 10px;">
+                    <span id="_answer"></span>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%" align="right">QQ群名:
+                </td>
+                <td width="25%" align="left" style="padding-left: 10px;">
+                    <span id="_qQCrowdName"></span>
+                </td>
+                <td width="25%" align="right">QQ号:
+                </td>
+                <td width="25%" align="left" style="padding-left: 10px;">
+                    <span id="_qQCode"></span>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%" align="right">性别:
+                </td>
+                <td width="25%" align="left" style="padding-left: 10px;">
+                    <span id="_sex"></span>
+                </td>
+                <td width="25%" align="right">店铺ID:
+                </td>
+                <td width="25%" align="left" style="padding-left: 10px;">
+                    <span id="_identCard"></span>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%" align="right">手机号:
+                </td>
+                <td width="25%" align="left" style="padding-left: 10px;">
+                    <span id="_mobile"></span>
+                </td>
+                <td width="25%" align="right">今日单数:
+                </td>
+                <td width="25%" align="left" style="padding-left: 10px;">
+                    <span id="_bill"></span>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%" align="right">支付宝:
+                </td>
+                <td width="25%" align="left" style="padding-left: 10px;">
+                    <span id="_alipay"></span>
+                </td>
+                <td width="25%" align="right">财富通:
+                </td>
+                <td width="25%" align="left" style="padding-left: 10px;">
+                    <span id="_treasure"></span>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%" align="right">状态:
+                </td>
+                <td width="25%" align="left" style="padding-left: 10px;">
+                    <span id="_state"></span>
+                </td>
+                <td width="25%" align="right">金币:
+                </td>
+                <td width="25%" align="left" style="padding-left: 10px;">
+                    <span id="_gold"></span>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%" align="right">&nbsp;&nbsp;
+                </td>
+                <td width="25%" align="left" style="padding-left: 10px;">
+                    <input type="button" class="tijiao" style="background: url(../../Content/images/guanbi.jpg); margin-left: 15px;" onclick="onClose('userMsg');" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="tanchu_frame" id="upAddOrUpdate" style="display: none;">
+    <input type="hidden" id="_UserId" />
+    <div class="tanchu">
+        <table border="0" cellspacing="0" cellpadding="0" class="xunjia_main">
+            <tr>
+                <td width="25%" align="right">用户名:
+                </td>
+                <td width="75%" align="left" style="padding-left: 10px;">
+                    <span id="_Code"></span>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%" align="right"><span>*</span>&nbsp;&nbsp;金额:
+                </td>
+                <td width="75%" align="left" style="padding-left: 10px;">
+                    <input type="text" class="xunjie_title" id="UpInfo_Number" value="">
+                </td>
+            </tr>
+            <tr>
+                <td width="25%" align="right">
+                    备注:
+                </td>
+                <td width="75%" align="left" style="padding-left: 10px;">
+                    <textarea rows="8" cols="80" id="UpInfo_Remark" style="width: 355px; height: 100px; font-size: 12px; line-height: 20px; color: #333; padding-left: 5px;"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%" align="right">&nbsp;&nbsp;
+                </td>
+                <td width="75%" align="left" style="padding-left: 10px;">
+                    <input type="button" class="tijiao" onclick="return onAddOrUpdate();" />
+                    <input type="button" class="tijiao" style="background: url(../../Content/images/guanbi.jpg); margin-left: 15px;" onclick="onClose('upAddOrUpdate');" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="tanchu_frame" id="upMsg" style="display: none;">
+    <div class="tanchu">
+        <table border="0" cellspacing="0" cellpadding="0" class="xunjia_main">
+            <tr>
+                <td width="25%" align="right">
+                    备注:
+                </td>
+                <td width="75%" align="left" style="padding-left: 10px;">
+                    <textarea rows="8" cols="80" id="_remark" style="width: 355px; height: 100px; font-size: 12px; line-height: 20px; color: #333; padding-left: 5px;"></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td width="25%" align="right">&nbsp;&nbsp;
+                </td>
+                <td width="75%" align="left" style="padding-left: 10px;">
+                    <input type="button" class="tijiao" style="background: url(../../Content/images/guanbi.jpg); margin-left: 15px;" onclick="onClose('upMsg');" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<div class="tanchu_frame" id="loadUpdate" style="display: none;">
+    <input type="hidden" id="_UpdateId" />
+    <div class="tanchu">
+        <table border="0" cellspacing="0" cellpadding="0" class="xunjia_main">
+            <tr>
+                <td align="right">
+                    用户名:
+                </td>
+                <td align="left" style="padding-left: 10px;">
+                    <input type="text" class="xunjie_title" id="_UpdateCode" value="" style="width:160px;">
+                </td>
+                <td align="right">
+                    密码:
+                </td>
+                <td align="left" style="padding-left: 10px;">
+                    <input type="text" class="xunjie_title" id="_UpdatePwd" value="" style="width:160px;">
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    密保问题:
+                </td>
+                <td align="left" style="padding-left: 10px;">
+                    <input type="text" class="xunjie_title" id="_UpdateProblem" value="" style="width:160px;">
+                </td>
+                <td align="right">
+                    密保答案:
+                </td>
+                <td align="left" style="padding-left: 10px;">
+                    <input type="text" class="xunjie_title" id="_UpdateAnswer" value="" style="width:160px;">
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    QQ群名:
+                </td>
+                <td align="left" style="padding-left: 10px;">
+                    <input type="text" class="xunjie_title" id="_UpdateQQCrowdName" value="" style="width:160px;">
+                </td>
+                <td align="right">
+                    QQ号:
+                </td>
+                <td align="left" style="padding-left: 10px;">
+                    <input type="text" class="xunjie_title" id="_UpdateQQCode" value="" style="width:160px;">
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    姓名:
+                </td>
+                <td align="left" style="padding-left: 10px;">
+                    <input type="text" class="xunjie_title" id="_UpdateName" value="" style="width:160px;">
+                </td>
+                <td align="right">
+                    性别:
+                </td>
+                <td align="left" style="padding-left: 10px;">
+                    <input type="radio" name="_UpdateSex" id="sex1" value="1" />男&nbsp;&nbsp;&nbsp;&nbsp;
+                    <input type="radio" name="_UpdateSex" id="sex0" value="0" />女
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    店铺ID:
+                </td>
+                <td align="left" style="padding-left: 10px;">
+                    <input type="text" class="xunjie_title" id="_UpdateIdentCard" value="" style="width:160px;">
+                </td>
+                <td align="right">
+                    手机号:
+                </td>
+                <td align="left" style="padding-left: 10px;">
+                    <input type="text" class="xunjie_title" id="_UpdateMobile" value="" style="width:160px;">
+                </td>
+            </tr>
+            <tr>
+                <td align="right">
+                    支付宝:
+                </td>
+                <td align="left" style="padding-left: 10px;">
+                    <input type="text" class="xunjie_title" id="_UpdateAlipay" value="" style="width:160px;">
+                </td>
+                <td align="right">
+                    财富通:
+                </td>
+                <td align="left" style="padding-left: 10px;">
+                    <input type="text" class="xunjie_title" id="_UpdateTreasure" value="" style="width:160px;">
+                </td>
+            </tr>
+            <tr>
+                <td align="right">&nbsp;&nbsp;
+                </td>
+                <td colspan="2" align="left" style="padding-left: 10px;">
+                    <input type="button" class="tijiao" onclick="return onUpateSave();" />
+                    <input type="button" class="tijiao" style="background: url(../../Content/images/guanbi.jpg); margin-left: 15px;" onclick="onClose('loadUpdate');" />
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>

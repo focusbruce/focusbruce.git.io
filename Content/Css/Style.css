@@ -1,0 +1,15 @@
+﻿table {
+    background-color:#C9C9C9;
+}
+
+    table tr {
+        background-color: #fff;
+        line-height: 28px;
+    }
+
+    table th {
+        width: 100px;
+    }
+    table td {
+    font-size:12px;
+    }

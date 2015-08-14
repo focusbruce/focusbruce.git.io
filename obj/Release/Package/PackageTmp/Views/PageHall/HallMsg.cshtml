@@ -1,0 +1,198 @@
+﻿@model HLSJ.Web.Models.TaskMsgModel
+@{
+    ViewBag.Title = "参加任务详情";
+    Layout = "~/Views/Shared/_LayoutBefore.cshtml";
+}
+<style>
+    .yellow_button
+    {
+        border: medium none;
+        color: #FFFFFF;
+        cursor: pointer;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .yellow_button
+    {
+        background: url("../../Content/images/yellow_button.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+        border: medium none;
+        color: #FFFFFF;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 14px;
+        font-weight: 800;
+        height: 36px;
+        line-height: 36px;
+        overflow: hidden;
+        text-align: center;
+        width: 139px;
+    }
+</style>
+<div class="fr main">
+    <div class="box">
+        <div class="boxtitle">查看任务</div>
+        <div class="boxcontent" style="padding: 20px 40px;">
+            <div class="order_flow" style="width: 565px;">
+                <div class="order_flow_left">
+                    <a title="生成任务" disabled="disabled" class="order_flow_input">生成任务</a>
+                    <span>
+                        <p class="name">发布任务</p>
+                    </span>
+                </div>
+                @if (Model.IsApple > 0)
+                {
+                    <div class="order_flow_arrive">
+                        <a title="申请参加" disabled="disabled" class="order_flow_input">申请参加</a>
+                        <span>
+                            <p class="name">申请参加</p>
+                        </span>
+                    </div>
+                }
+                else
+                {
+                    <div class="order_flow_wait">
+                        <a title="申请参加" disabled="disabled" class="order_flow_input">申请参加</a>
+                        <span>
+                            <p class="name">申请参加</p>
+                        </span>
+                    </div>
+                }
+
+                <div class="order_flow_wait">
+                    <a title="通过申请" disabled="disabled" class="order_flow_input">&nbsp;</a>
+                    <span>
+                        <p class="name">通过申请</p>
+                    </span>
+                </div>
+
+                <div class="order_flow_wait">
+                    <a title="任务完成" disabled="disabled" class="order_flow_input">&nbsp;</a>
+                    <span>
+                        <p class="name">任务完成</p>
+                    </span>
+                </div>
+
+                <div class="order_flow_wait">
+                    <a title="交易完成" disabled="disabled" class="order_flow_input">&nbsp;</a>
+                    <span>
+                        <p class="name">交易完成</p>
+                    </span>
+                </div>
+
+                <div class="order_flow_right_wait">
+                    <a title="评价完成" disabled="disabled" class="order_flow_input">&nbsp;</a>
+                    <span>
+                        <p class="name">评价完成</p>
+                    </span>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <h3>&nbsp;</h3>
+            <div class="taskitem">
+                <label>商家编号：</label><span>【@Model.PublishUser.Code】</span><label>QQ：</label><span><a target="_blank" href="tencent://Message/?Uin=@Model.PublishUser.QQCode&websiteName=q-zone.qq.com&Menu=yes"><img src="~/Content/images/pa.gif" border="0"></a></span><label>连接数量：</label><span>【@Model.Task.Number】</span><label>总金额：</label><span>【@(Model.Task.Money)元】</span><br>
+                <label class="red">任务要求：</label><span class="remark">【@Model.Task.Title】</span><br>
+                <label>假聊：</label><span>【<img src="~/Content/images/@(Model.Task.Fake > 0 ? "cross.png" : "tick.png")" alt="" height="16" width="16">】</span><label>改地址：</label><span>【<img src="~/Content/images/@(Model.Task.Change > 0 ? "cross.png" : "tick.png")" alt="" height="16" width="16">】</span><label>返款时间：</label><span>【@(Model.Task.BackMoney>3?(Model.Task.BackMoney==4?"6小时":"7-12小时"):(Model.Task.BackMoney==0?"立即":(Model.Task.BackMoney.ToString()+"小时")))】</span>
+            </div>
+            <h3>&nbsp;</h3>
+            @if (Model.IsApple <= 0)
+            {
+                <div class="taskitem">
+                    <input class="yellow_button" type="button" tabindex="8" value="申请参加" onclick="onAppleAdd('@Model.Task.ID    ');">
+                    <span style="color: red; font-weight: bold; width: 300px; font-size: 16px;">若想接此单，请点击申请参加按钮。</span>
+                </div>
+                <h3>&nbsp;</h3>
+            }
+            else
+            {
+                <div class="taskitem">
+                    <label>申请编号：</label><span>【@Model.AppleUser.Code】</span><label>QQ：</label><span><a target="_blank" href="tencent://Message/?Uin=@Model.AppleUser.QQCode&websiteName=q-zone.qq.com&Menu=yes"><img src="~/Content/images/pa.gif" border="0"></a></span><label>旺旺号：</label><span>【@Model.Apple.SubjoinNum】</span><br>
+                </div>
+                <h3>&nbsp;</h3>
+            }
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function onAppleAdd(id)
+    {
+        $("#_AppleId").val(id);
+        $("#main").css("opacity", "0.3");
+        var wid = $(window).width();
+        var hei = $(window).height();
+        var lef = (wid - 400) / 2 + "px";
+        var heii = (hei - 200) / 2 + "px";
+        $("#AppleAddId").css({
+            "z-index": "99",
+            "position": "absolute",
+            "display": "block",
+            "width": "0px",
+            "height": "0px",
+            "top": heii,
+            "background": "#EEEEEE"
+        });
+    }
+
+    function onHallSave()
+    {
+        if($("#_SubjoinNum").val()=="0")
+        {
+            alert("选择一个旺旺号！");
+            return false;
+        }
+
+        var ajax = {};
+        ajax.type = "POST";
+        ajax.url = "/PageHall/HallAdd";
+        ajax.data = {};
+        ajax.data.TaskID = $("#_AppleId").val();
+        ajax.data.SubjoinNum=$("#_SubjoinNum option:selected").text();
+        ajax.data.ajax = new Date().getTime();
+        ajax.success = function (result) {
+            if (result == "1") {
+                alert("已申请，请等待发布人审核！");
+                window.location.href=window.location.href;
+            }
+            else {
+                alert("申请失败，请刷新后重试！");
+            }
+        };
+        ajax.error = function (error) {
+            alert(error.statusText);
+        };
+        $.ajax(ajax);
+    }
+
+    $(document).ready(function () {
+        getNumber();
+    });
+
+    function getNumber()
+    {
+        var ajax = {};
+        ajax.type = "POST";
+        ajax.url = "/PageHall/GetNumberList";
+        ajax.data = {};
+        ajax.data.ajax = new Date().getTime();
+        ajax.success = function (result) {
+            if (result.length>0) {
+                var json = eval('('+result+')');
+                    
+                var html=$("#_SubjoinNum").html();
+                    
+                for(var i=0;i<json.length;i++)
+                {
+                    html+='<option value="'+json[i].ID+'">'+json[i].Number+'</option>';
+                }
+                $("#_SubjoinNum").html(html);
+            }
+            else {
+                alert("加载失败，请刷新后重试！");
+            }
+        };
+        ajax.error = function (error) {
+            alert(error.statusText);
+        };
+        $.ajax(ajax);
+    }
+</script>

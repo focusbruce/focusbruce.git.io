@@ -1,0 +1,97 @@
+﻿@model HLSJ.Business.ViewObject.User_InfoVO
+@{
+    ViewBag.Title = "回答问题";
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="UTF-8">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>首页狼爱上羊【内部平台】
+    </title>
+    <script src="~/Content/Js/kissy-min.js"></script>
+    <script src="~/Content/Js/switchable-min.js"></script>
+    <script src="~/Content/Js/validation-min.js"></script>
+    <link href="~/Content/Skin/default.css" rel="stylesheet" />
+    <link href="~/Content/Skin/validation-min.css" rel="stylesheet" />
+    <link href="~/Content/Css/main.css" rel="stylesheet" />
+    <script src="~/Content/Js/jquery-1.4.3.min.js"></script>
+    <script type="text/javascript">
+        function onHint() {
+            alert("请先登录！");
+            window.location.href = window.location.href;
+        }
+    </script>
+</head>
+<body>
+    <div class="topNavi">
+        <ul>
+            <li class="title">亲,&nbsp;欢迎您来到狼爱上羊!</li>
+            <li><a href="#" title="抓羊大厅"><span class="t1"></span>抓羊大厅</a></li>
+        </ul>
+    </div>
+    <div class="wrap">
+        <div class="header">
+            <div class="logoBar">
+                <h1 class="logo"></h1>
+                <div class="userPanel"><a class="userLog" href="#" onclick="onHint();">会员中心</a><a id="aboutUs" class="userCon" title="请与我们联系，为您服务是我们的荣幸" href="#" onclick="onHint();">联系我们</a></div>
+            </div>
+            <div class="navBar">
+                <ul id="mainNav" class="mainNav">
+                    <li class="li1"><a class="a1 red" href="#" onclick="onHint();">首页</a></li>
+                    <li class="spe"></li>
+                    <li class="li1"><a class="a1" href="#" onclick="onHint();">接任务必看</a></li>
+                    <li class="spe"></li>
+                    <li class="li1"><a class="a1" href="#" onclick="onHint();">发任务必看</a></li>
+                    <li class="spe"></li>
+                    <li class="li1"><a class="a1 red" href="#" onclick="onHint();">★任务大厅★</a></li>
+                    <li class="spe"></li>
+                    <li class="li1"><a class="a1 red" href="#" onclick="onHint();">黑名单</a></li>
+                    <li class="spe"></li>
+                    <li class="li1"><a class="a1" href="#" onclick="onHint();">经验分享</a></li>
+                    <li class="spe"></li>
+                    <li class="li1"><a class="a1 red" href="#" onclick="onHint();">★新人必看★</a></li>
+                    <li class="spe"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="wrap">
+        <div class="box mt10">
+            <div class="boxtitle">密码找回</div>
+            <div class="boxcontent">
+                <form name="J_form" method="post" action="/PageThick/Answer" id="J_form">
+                    @Html.HiddenFor(m => m.ID)
+                    <div class="feld clearfix">
+                        <label class="flabel"><font class="red">*</font>问题：</label><input name="Problem" type="text" id="Problem" class="txt" value="@Model.Problem" /><span class="fspan">用于密码遗忘时使用</span>
+                    </div>
+                    <div class="feld clearfix">
+                        <label class="flabel"><font class="red">*</font>答案:</label><input name="Answer" type="text" id="Answer" class="txt" /><span class="fspan">密码遗忘时将验证此答案</span>
+                    </div>
+                    <div class="feld clearfix">
+                        <input type="image" name="submit" id="submit" src="../../Content/skin/images/save.gif" style="border-width: 0px;" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        KISSY.use("gallery/validation/1.0/", function (S, Validation) {
+            var form = new Validation('#J_form', {
+                style: 'under'
+            });
+        });
+
+        S.Event.on('#J_form', "submit", function () {
+            return form.isValid();
+        });
+    </script>
+    <div class="wrap">
+        <div class="footer">
+            <p class="copyright">
+                2005-2014 8180.com 心微网 版权所有，并保留所有权利。 <a target="_blank" href="#">浙ICP备12045865</a><br>
+            </p>
+        </div>
+    </div>
+</body>
+</html>
+

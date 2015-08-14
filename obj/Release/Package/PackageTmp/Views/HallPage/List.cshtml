@@ -1,0 +1,62 @@
+﻿@model HLSJ.Web.Models.NoticeModel
+@{
+    ViewBag.Title = "大厅公告";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Content/Js/JsHallPage.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        onPageLoad();
+    });
+</script>
+
+<div class="fr main">
+    <div class="box">
+        <div class="boxtitle">大厅公告</div>
+        <div class="boxinfo" style="min-height: 470px; _height: 470px;">
+            <div>
+                <table width="100%" border="0" cellspacing="1" cellpadding="0">
+                    <tr>
+                        <td align="right">标题：
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(m => m.Notice.Title)
+                        </td>
+                        <td align="right">状态：
+                        </td>
+                        <td>
+                            @Html.DropDownListFor(m => m.Notice.State, (List<SelectListItem>)ViewBag.StateData)
+                        </td>
+                        <td>
+                            <input type="button" id="_search" value="查询" onclick="changePage(1);" />
+                        </td>
+                    </tr>
+                </table>
+                <a href="/HallPage/Add">新建</a>
+                <table class="border" style="border-collapse: collapse;" cellpadding="0" cellspacing="0" border="0">
+                    <tr style="height: 30px;" align="center">
+                        <th scope="col" style="width: 60px; cursor: col-resize;">
+                            <div style="width: 99%; line-height: 24px; cursor: default;">序号</div>
+                        </th>
+                        <th style="cursor: col-resize;" scope="col">
+                            <div style="width: 99%; line-height: 24px; cursor: default;">标题</div>
+                        </th>
+                        <th scope="col" style="width: 120px; cursor: col-resize;">
+                            <div style="width: 99%; line-height: 24px; cursor: default;">状态</div>
+                        </th>
+                        <th scope="col" style="width: 80px; cursor: col-resize;">
+                            <div style="width: 99%; line-height: 24px; cursor: default;">添加日期</div>
+                        </th>
+                        <th scope="col" style="width: 120px; cursor: col-resize;">
+                            <div style="width: 99%; line-height: 24px; cursor: default;">操作</div>
+                        </th>
+                    </tr>
+                    <tbody id="tbList"></tbody>
+                </table>
+                <div id="divPager" class="dfPager">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

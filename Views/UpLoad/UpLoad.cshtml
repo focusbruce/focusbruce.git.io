@@ -1,0 +1,21 @@
+﻿<script type="text/javascript" src="@Url.Content("~/Scripts/jquery.form.js")"></script>
+<script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.5.1.min.js")"></script>
+<p class="mb15">
+    <img src="" id="upLoadImageShow" width="100" height="100" />
+    <br />
+    <a id="system" style="cursor: pointer;" onclick="selectSettingType()">选择上传图片</a>
+</p>
+<p class="mb15">
+    <div id="upload" class="cb mt10" style="display: none;">
+        <div id="upload_title" class="mt10">
+            <h4>
+                选择本地图片上传</h4>
+            <span id="errorInfoSpan" class="red"></span>
+        </div>
+        <iframe name="hd" style="display: none;"></iframe>
+        <form id="fileForm" method="post" action="@Url.Content("~/Admin/File/ImageUpLoad")" enctype="multipart/form-data" >
+        <input type="file" name="upImage" class="mt10" size="50" />
+        <input id="btnUpload" type="button" value="上传" />
+        <span class="gray">图片格式 jpg/gif 小于1M</span><br />
+        </form>
+    </div>

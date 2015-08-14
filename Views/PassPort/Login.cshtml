@@ -1,0 +1,20 @@
+﻿@model HLSJ.Web.Models.UserInfoModel
+@{
+    ViewBag.Title = "后台登录页面";
+}
+
+<html>
+<head>
+    <title>后台登录页面</title>
+    <script src="~/Content/Js/jquery-1.9.1.js"></script>
+    <script src="~/Content/Js/JsLogin.js"></script>
+</head>
+<body>
+    用户名：@Html.TextBoxFor(m => m.UserInfo.Code, new { Value="admin"})
+    密码：@Html.PasswordFor(m => m.UserInfo.Password, new { Value="admin"})
+    验证码：@Html.TextBoxFor(m => m.VerifiCode)
+    @Html.Partial("VeriCode", new HLSJ.Web.Models.VeriCodeClass("adminCode"))
+    @Html.ValidationMessageFor(model => model.VerifiCode)
+    <input type="button" id="btnOK" value="登录" onclick="return onLogin();" />
+</body>
+</html>

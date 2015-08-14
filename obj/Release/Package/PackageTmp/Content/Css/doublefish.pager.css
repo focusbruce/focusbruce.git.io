@@ -1,0 +1,8 @@
+﻿
+.dfPager { font-size: 14px; margin-left: auto; margin-right: auto; margin-top: 5px; text-align: center; }
+.dfPager a { text-decoration:none; border:solid 1px #AAE; color: #15B; }
+.dfPager a: hover { border:solid 1px #0000FF; }
+.dfPager a, .dfPager span { padding: 0.3em 0.5em; margin: 2px; line-height: 20px; }
+.dfPager input {width: 30px; height: 18px; }
+.dfPager .current { background: #26B; color: #fff; border: solid 1px #AAE; }
+.dfPager .current .prev, .dfPager .current .next{ color: #999; border-color: #999; background: #fff; }

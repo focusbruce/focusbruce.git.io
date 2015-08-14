@@ -1,0 +1,260 @@
+﻿@model HLSJ.Web.Models.UserInfoModel
+@{
+    ViewBag.Title = "主页";
+}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="UTF-8">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>刷手会员注册 </title>
+    <script src="~/Content/Js/kissy-min.js"></script>
+    <script src="~/Content/Js/switchable-min.js"></script>
+    <script src="~/Content/Js/validation-min.js"></script>
+    <link href="~/Content/Skin/default.css" rel="stylesheet" />
+    <link href="~/Content/Skin/validation-min.css" rel="stylesheet" />
+    <script src="~/Content/Js/jquery-1.4.3.min.js"></script>
+    <script type="text/javascript">
+        function onHint() {
+            alert("请先登录！");
+            window.location.href = "/Home/Index";
+        }
+    </script>
+</head>
+<body>
+    <div class="topNavi">
+        <ul>
+            <li class="title">亲,&nbsp;欢迎您来到狼爱上羊!</li>
+            <li><a href="TaskList.aspx" title="抓羊大厅"><span class="t1"></span>抓羊大厅</a></li>
+        </ul>
+    </div>
+    <div class="wrap">
+        <div class="header">
+            <div class="logoBar">
+                <h1 class="logo">
+                </h1>
+                <div class="userPanel">
+                    <a class="userLog" href="Main.aspx">会员中心</a><a id="aboutUs" class="userCon" title="请与我们联系，为您服务是我们的荣幸"
+                        href="ContactUs.aspx">联系我们</a></div>
+            </div>
+            <div class="navBar">
+                <ul id="mainNav" class="mainNav">
+                    <li class="li1"><a class="a1 red" href="#" onclick="onHint();">首页</a></li>
+                    <li class="spe"></li>
+                    <li class="li1"><a class="a1" href="#" onclick="onHint();">接任务必看</a></li>
+                    <li class="spe"></li>
+                    <li class="li1"><a class="a1" href="#" onclick="onHint();">发任务必看</a></li>
+                    <li class="spe"></li>
+                    <li class="li1"><a class="a1 red" href="#" onclick="onHint();">★任务大厅★</a></li>
+                    <li class="spe"></li>
+                    <li class="li1"><a class="a1 red" href="#" onclick="onHint();">黑名单</a></li>
+                    <li class="spe"></li>
+                    <li class="li1"><a class="a1" href="#" onclick="onHint();">经验分享</a></li>
+                    <li class="spe"></li>
+                    <li class="li1"><a class="a1 red" href="#" onclick="onHint();">★新人必看★</a></li>
+                    <li class="spe"></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="wrap">
+        <div class="box mt10">
+            <div class="boxtitle">
+                刷手用户注册</div>
+            <div class="boxcontent">
+                <h3>
+                    请填写用户信息(带<font class="red">*</font>为必填项)</h3>
+                <form name="J_form" method="post" action="/Register/SignSs" id="J_form">
+                <div class="feld clearfix">
+                    <label class="flabel">
+                        <font class="red">*</font>用户名：</label><input name="userCode" type="text" id="userCode"
+                            class="txt" /><span class="fspan" id="type">以SS开头后面加4位数字，举例：SS0000</span>
+                </div>
+                <div class="feld clearfix">
+                    <label class="flabel">
+                        <font class="red">*</font>密码：</label><input name="pwd" type="password" id="pwd" class="txt"
+                            data-valid="{length:[5,10,true]}" /><span class="fspan">长度必须大于 等于5个小于10个字符，只能为英语字、数字</span>
+                </div>
+                <div class="feld clearfix">
+                    <label class="flabel">
+                        <font class="red">*</font>确认密码：</label><input name="pwd2" type="password" id="pwd2"
+                            class="txt" data-valid="{equalTo:['#pwd','两次密码不一致了']}" /><span class="fspan">请将输入的密码再次输入</span>
+                </div>
+                <div class="feld clearfix">
+                    <label class="flabel">
+                        <font class="red">*</font>密码提问：</label><input name="Problem" type="text" id="Problem"
+                            class="txt" data-valid="{regex: [/^\S{1,30}$/,'请输入密码提问']}" /><span class="fspan">用于密码遗忘时使用</span>
+                </div>
+                <div class="feld clearfix">
+                    <label class="flabel">
+                        <font class="red">*</font>密码答案：</label><input name="Answer" type="text" id="Answer"
+                            class="txt" data-valid="{regex: [/^\S{1,30}$/,'请输入验证答案']}" /><span class="fspan">密码遗忘时将验证此答案</span>
+                </div>
+                <div class="feld clearfix">
+                    <label class="flabel">
+                        <font class="red">*</font>QQ群全名：</label><input name="QQCrowdName" type="text" id="QQCrowdName"
+                            class="txt" data-valid="{regex: [/^\S{1,30}$/,'请填写您在Q群里的全名']}" /><span class="fspan">请填写您在Q群里的全名,举例:001+小陈+金华</span>
+                </div>
+                <div class="feld clearfix">
+                    <label class="flabel">
+                        <font class="red">*</font>QQ：</label><input name="QQCode" type="text" id="QQCode"
+                            class="txt" /><span class="fspan">请填写您在群里的QQ号,举例:12345678</span>
+                </div>
+                <div class="feld clearfix">
+                    <label class="flabel">
+                        <font class="red">*</font>姓名：</label><input name="Name" type="text" id="Name" class="txt"
+                            data-valid="{chinese:['请输入你的中文姓名']}" /><span class="fspan">请填写您的姓名</span>
+                </div>
+                <div class="feld clearfix">
+                    <label class="flabel">
+                        <font class="red">*</font>性别：</label><input id="chkMan" type="radio" name="Sex" value="1"
+                            checked="checked" /><label for="chkMan">男</label>
+                    <input id="chkFemale" type="radio" name="Sex" value="0" /><label for="chkFemale">女</label>
+                </div>
+                <div class="feld clearfix">
+                    <label class="flabel">
+                        <font class="red">*</font>店铺ID：</label><input name="IdentCard" type="text" id="IdentCard"
+                            class="txt" /><span class="fspan">请填写您的店铺ID</span>
+                </div>
+                <div class="feld clearfix">
+                    <label class="flabel">
+                        <font class="red">*</font>手机：</label><input name="mobile" type="text" id="mobile"
+                            class="txt" /><span class="fspan">请填写您进QQ群认证时的手机号</span>
+                </div>
+                <div class="feld clearfix">
+                    <label class="flabel">
+                        支付宝：</label><input name="Alipay" type="text" id="Alipay" class="txt" />
+                </div>
+                <div class="feld clearfix">
+                    <label class="flabel">
+                        财付通：</label><input name="Treasure" type="text" id="Treasure" class="txt" />
+                </div>
+                <div class="feld clearfix">
+                    <label class="flabel">
+                        <font class="red">*</font>介绍人：</label><input name="jieshaoCode" type="text" id="jieshaoCode"
+                            class="txt" /><span class="fspan">请填写介绍人名称</span>
+                </div>
+                <div class="feld clearfix">
+                    <label class="flabel">
+                        <font class="red">*</font>验证码：</label><input name="authcode" type="text" id="authcode"
+                            class="txt" data-valid="{regex: [/^\S{4,4}$/,'验证码为4个字符']}" />
+                    @Html.Partial("VeriCode", new HLSJ.Web.Models.VeriCodeClass("userSign"))
+                    @Html.ValidationMessageFor(model => model.VerifiCode)<span class="fspan">请输入图片上的数字</span>
+                </div>
+                <div class="feld clearfix">
+                    <input type="image" name="submit" id="submit" src="../../Content/skin/images/register.gif"
+                        style="border-width: 0px;" />
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="wrap">
+        <div class="footer">
+            <p class="copyright">
+                Copyright © 2015 All Rights Reserved. 内部平台 版权所有<br />
+                <a href="/www.cyberpolice.cn/wfjb/">
+                    <img src="../../Content/skin/images/110.gif" width="118" height="48" /></a>
+            </p>
+        </div>
+    </div>
+    <script>
+        KISSY.use("gallery/validation/1.0/", function (S, Validation) {
+            var form = new Validation('#J_form', {
+                style: 'under'
+            });
+
+            form.add("#userCode", {
+                regex: [/^SS\d{4}$/, '以SS开头后面加4位数字'],
+                func: function (username) {
+                    var msg = "";
+                    S.io({
+                        type: "POST",
+                        url: "/Register/IsRep",
+                        data: { username: username },
+                        dataType: "json",
+                        async: false,
+                        success: function (F, H, G) {
+                            if (F.success) {
+                                if (F.message == "duplicated") {
+                                    msg = "对不起，您输入的昵称已被占用，请尝试另一个昵称！"
+                                }
+                            }
+                        }
+                    });
+                    return msg
+                }
+            });
+
+            form.add("#QQCode", {
+                regex: [/^\d{5,15}$/, '请输入5位以上的QQ号码'],
+                func: function (code) {
+                    var msg = "";
+                    S.io({
+                        type: "POST",
+                        url: "/Register/IsQQRep",
+                        data: { name: code },
+                        dataType: "json",
+                        async: false,
+                        success: function (F, H, G) {
+                            if (F.success) {
+                                if (F.message == "duplicated") {
+                                    msg = "对不起，您输入的QQ已被占用，请尝试另一个QQ！"
+                                }
+                            }
+                        }
+                    });
+                    return msg
+                }
+            });
+
+            form.add("#IdentCard", {
+                regex: [/^\S{1,30}$/, '请输入准确的店铺ID'],
+                func: function (code) {
+                    var msg = "";
+                    S.io({
+                        type: "POST",
+                        url: "/Register/IsIdentRep",
+                        data: { name: code },
+                        dataType: "json",
+                        async: false,
+                        success: function (F, H, G) {
+                            if (F.success) {
+                                if (F.message == "duplicated") {
+                                    msg = "对不起，您输入的店铺ID已被占用，请尝试其他店铺ID！"
+                                }
+                            }
+                        }
+                    });
+                    return msg
+                }
+            });
+
+            form.add("#mobile", {
+                regex: [/^\d{11}$/, '请输入手机号码'],
+                func: function (code) {
+                    var msg = "";
+                    S.io({
+                        type: "POST",
+                        url: "/Register/IsMobileRep",
+                        data: { name: code },
+                        dataType: "json",
+                        async: false,
+                        success: function (F, H, G) {
+                            if (F.success) {
+                                if (F.message == "duplicated") {
+                                    msg = "对不起，您输入的手机已被占用，请尝试其他手机号！"
+                                }
+                            }
+                        }
+                    });
+                    return msg
+                }
+            });
+
+            S.Event.on('#J_form', "submit", function () {
+                return form.isValid();
+            });
+        });
+    </script>
+</body>
+</html>

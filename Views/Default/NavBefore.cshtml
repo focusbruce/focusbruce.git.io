@@ -1,0 +1,23 @@
+﻿@model HLSJ.Web.Models.UserTotalModel
+<div class="fl menu">
+    <dl>
+        <dt>会员信息</dt>
+        <dd>
+            <p>您好:<a href="/Main/UserMain">@Model.Code</a></p>
+            <p>
+                我的金币:<a href="/PageNotice/NoticeMsg?Mark=5">@Model.MyGoldTotal</a>
+                <img src="~/Content/images/points.gif" alt="" height="20" width="20">
+            </p>
+        </dd>
+        <dd><a href="/Main/MyGoldList">充值记录</a></dd>
+        <dd><a href="/PageSubjoin/List?Mark=0">我的旺旺</a></dd>
+        <dd><a href="/Main/AlterPwd">修改密码</a></dd>
+        <dd><a href="/Home/Index" class="red">退出平台</a></dd>
+    </dl>
+    <dl>
+        <dt>任务管理</dt>
+        <dd><a href="/PagePublish/Add" class="red">发布任务</a></dd>
+        <dd><a href="/PageMyTask/MyPublishList">我发布的任务</a></dd>
+        <dd><a href="/PageMyApple/MyAppleList">我参加的任务</a></dd>
+    </dl>
+</div>

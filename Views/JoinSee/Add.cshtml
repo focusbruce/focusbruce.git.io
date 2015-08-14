@@ -1,0 +1,88 @@
+﻿@model HLSJ.Web.Models.NoticeModel
+@{
+    ViewBag.Title = "接任务必看";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+ .jibenxinxi{  height:auto; float:left;}
+ .jibenxinxi tr{ width:729px; height:44px;}
+ .jibenxinxi tr td{ height:44px; font-size:12px; color:#666666; line-height:44px;}
+ .jibenxinxi tr td a{ color:#336699;}
+ .jibenxinxi tr td span{ color:#333333;}
+ .xinxi_text{ width:138px; height:22px; border:1px #aaaaaa solid; font-size:12px; color:#333333; line-height:22px; padding-left:10px;}
+  .tijiao{ background:url(../../Content/images/save.gif); width:97px; height:33px; cursor:pointer; border:none; margin-top:10px; float:left;}
+</style>
+<script src="~/Content/kindeditor/kindeditor.js"></script>
+<script type="text/javascript">
+    KindEditor.ready(function (K) {
+        var options = {
+            uploadJson: '../Content/kindeditor/asp.net/upload_json.ashx',
+            fileManagerJson: '../Content/kindeditor/asp.net/file_manager_json.ashx',
+            allowFileManager: true
+        };
+        window.editor = K.create('#content', options);
+    });
+
+    function onSave() {
+        if ($.trim($("#Notice_Title").val()).length <= 0) {
+            alert("标题不能为空！");
+            return false;
+        }
+        var ajax = {};
+        ajax.type = "POST";
+        ajax.url = "/JoinSee/Add";
+        ajax.data = {};
+        ajax.data.ID = $("#Notice_ID").val();
+        ajax.data.Title = $("#Notice_Title").val();
+        ajax.data.Content = $("iframe").contents().find("body").html();
+        ajax.data.ajax = new Date().getTime();
+        ajax.success = function (result) {
+            if (result == "1") {
+                alert("保存成功！");
+                window.location.href = "/JoinSee/List";
+            }
+            else {
+                alert("保存失败，请刷新后重试！");
+            }
+        };
+        ajax.error = function (error) {
+            alert(error.statusText);
+        };
+        $.ajax(ajax);
+    }
+</script>
+
+@Html.HiddenFor(m => m.Notice.ID)
+<div class="fr main">
+    <div class="box">
+        <div class="boxtitle">发布任务</div>
+        <div class="boxinfo" style="min-height: 470px; _height: 470px;">
+            <table border="0" cellspacing="0" cellpadding="0" class="jibenxinxi">
+                <tr>
+                    <td width="30%" align="right">
+                        <font style="color: #ff6600;">*</font>标题：
+                    </td>
+                    <td width="70%" align="left" style="padding-left: 10px;">
+                        @Html.TextBoxFor(m => m.Notice.Title)
+                    </td>
+                </tr>
+                <tr>
+                    <td width="30%" align="right">
+                        <font style="color: #ff6600;">*</font>内容：
+                    </td>
+                    <td width="70%" align="left" style="padding-left: 10px;" colspan="3">
+                        <textarea id="content" name="content" style="width: 700px; height: 300px;">@(Model != null && Model.Notice != null ? Model.Notice.Content : "")</textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="30%" align="right">&nbsp;&nbsp;
+                    </td>
+                    <td width="70%" align="left" style="padding-left: 10px;">
+                        <input type="button" class="tijiao"  onclick="return onSave();"/>&nbsp;&nbsp;&nbsp;<a href="/JoinSee/List">返回</a>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+

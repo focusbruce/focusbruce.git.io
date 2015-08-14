@@ -1,0 +1,16 @@
+﻿@model HLSJ.Business.ViewObject.Notice_InfoVO
+@{
+    ViewBag.Title = "会员公告详情";
+    Layout = "~/Views/Shared/_LayoutBefore.cshtml";
+}
+
+<div class="fr main">
+    <div class="box">
+        <div class="boxtitle">会员公告详情</div>
+        <div class="boxinfo" style="min-height: 470px; _height: 470px;">
+            <p>
+                @Html.Raw(Model.Content)
+            </p>
+        </div>
+    </div>
+</div>

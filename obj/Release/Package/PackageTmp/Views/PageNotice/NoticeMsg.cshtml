@@ -1,0 +1,16 @@
+﻿@model HLSJ.Web.Models.NoticeModel
+@{
+    ViewBag.Title = "公告详情";
+    Layout = "~/Views/Shared/_LayoutBefore.cshtml";
+}
+
+<div class="fr main">
+    <div class="box">
+        <div class="boxtitle">@ViewBag.Name</div>
+        <div class="boxinfo" style="min-height: 470px; _height: 470px;">
+            <p>
+                @Html.Raw(Model.Notice.Content)
+            </p>
+        </div>
+    </div>
+</div>

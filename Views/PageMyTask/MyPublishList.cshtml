@@ -1,0 +1,69 @@
+﻿@model HLSJ.Web.Models.ProcedureTaskModel
+@{
+    ViewBag.Title = "我发布的任务";
+    Layout = "~/Views/Shared/_LayoutBefore.cshtml";
+}
+<script src="~/Content/Js/JsMyTask.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        onPageLoad();
+    });
+</script>
+
+<div class="fr main">
+    <div class="box">
+        <div class="boxtitle">我发布的任务（@Model.Total）</div>
+        <div class="boxinfo" style="min-height: 470px; _height: 470px;">
+            <div>
+                <table width="100%" border="0" cellspacing="1" cellpadding="0">
+                    <tr>
+                        <td align="right">旺旺号：
+                        </td>
+                        <td>
+                            @Html.TextBoxFor(m => m.Task.SubjoinNumber)
+                        </td>
+                        <td align="right">状态：
+                        </td>
+                        <td>
+                            @Html.DropDownListFor(m => m.Task.TaskState, (List<SelectListItem>)ViewBag.TaskStateData)
+                        </td>
+                        <td>
+                            <input type="button" id="_search" value="查询" onclick="changePage(1);" />
+                        </td>
+                    </tr>
+                </table>
+                <table class="border" style="border-collapse: collapse;" cellpadding="0" cellspacing="0" border="0">
+                    <tr style="height: 30px;" align="center">
+                        <th scope="col" style="width: 60px; cursor: col-resize;">
+                            <div style="width: 99%; line-height: 24px; cursor: default;">序号</div>
+                        </th>
+                        <th style="cursor: col-resize;" scope="col">
+                            <div style="width: 99%; line-height: 24px; cursor: default;">任务要求</div>
+                        </th>
+                        <th scope="col" style="width: 70px; cursor: col-resize;">
+                            <div style="width: 99%; line-height: 24px; cursor: default;">旺旺号</div>
+                        </th>
+                        <th scope="col" style="width: 70px; cursor: col-resize;">
+                            <div style="width: 99%; line-height: 24px; cursor: default;">总金额</div>
+                        </th>
+                        <th scope="col" style="width: 70px; cursor: col-resize;">
+                            <div style="width: 99%; line-height: 24px; cursor: default;">连接数</div>
+                        </th>
+                        <th scope="col" style="width: 90px; cursor: col-resize;">
+                            <div style="width: 99%; line-height: 24px; cursor: default;">发布日期</div>
+                        </th>
+                        <th scope="col" style="width: 90px; cursor: col-resize;">
+                            <div style="width: 99%; line-height: 24px; cursor: default;">任务状态</div>
+                        </th>
+                        <th scope="col" style="width: 60px; cursor: col-resize;">
+                            <div style="width: 99%; line-height: 24px; cursor: default;">操作</div>
+                        </th>
+                    </tr>
+                    <tbody id="tbList"></tbody>
+                </table>
+                <div id="divPager" class="dfPager">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
